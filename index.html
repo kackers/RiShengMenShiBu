@@ -148,8 +148,8 @@
             tdTaxIncluded.innerHTML = "是";
 //document.getElementById("textTaxIncluded").innerHTML;
 
-            //tdAction.innerHTML = '<a href="javascript:;" onclick="editRowData(this)">edit</a> <a href="javascript:;" onclick="delRowData(this)">delete</a>';
-	    tdAction.innerHTML = '<a href="javascript:;" onclick="delRowData(this)">删除行</a>';
+            tdAction.innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑行</a> <a href="javascript:;" onclick="delRowData(this)">删除行</a>';
+	    //tdAction.innerHTML = '<a href="javascript:;" onclick="delRowData(this)">删除行</a>';
             tr.appendChild(tdId);
             tr.appendChild(tdName);
             tr.appendChild(tdTax);
@@ -176,9 +176,9 @@ clearInputBox();
 	    Unit = tr.children[3].innerHTML;
 	    Price = tr.children[4].innerHTML;
             //tr.children[1].innerHTML = "<select>" + document.getElementById("selList").innerHTML + "</select>";
-            tr.children[1].innerHTML = '<input type="text"    style="width:111px; value="' + Name + '"/>';
+            tr.children[1].innerHTML = '<input type="text"    style=width:111px value="' + Name + '"/>';
             tr.children[2].innerHTML = '<input type="text" class="count" value="' + Tax + '"/>';
-	tr.children[3].innerHTML = '<input type="text"  style="width:20px; value="' + Unit + '"/>';
+	tr.children[3].innerHTML = '<input type="text"  style=width:40px value="' + Unit + '"/>';
 	tr.children[4].innerHTML = '<input type="text" class="count" value="' + Price + '"/>';
 	//tr.children[5].innerHTML = '<input type="text" class="count" value="' + Tax + '"/>';
 
@@ -186,17 +186,25 @@ clearInputBox();
             IsEditable = false;
         }//编辑行数据
         function cancelEdit(obj) {
-            var tr = obj.parentNode.parentNode;            
+            var tr = obj.parentNode.parentNode;      
+
+
             tr.children[1].innerHTML = Name;
-            tr.children[2].innerHTML = Count;
-            tr.children[3].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑</a> <a href="javascript:;" onclick="delRowData(this)">删除</a>';
+            tr.children[2].innerHTML = Tax;
+            tr.children[3].innerHTML = Unit;
+	    tr.children[4].innerHTML =  Price ; 
+     
+
+            tr.children[6].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑</a> <a href="javascript:;" onclick="delRowData(this)">删除</a>';
             IsEditable = true;
         }//取消编辑
         function saveEdit(obj) {
             var tr = obj.parentNode.parentNode;
             tr.children[1].innerHTML = tr.children[1].children[0].value;
             tr.children[2].innerHTML = tr.children[2].children[0].value;
-            tr.children[3].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑</a> <a href="javascript:;" onclick="delRowData(this)">删除</a>';
+            tr.children[3].innerHTML = tr.children[3].children[0].value;
+            tr.children[4].innerHTML = tr.children[4].children[0].value;
+            tr.children[6].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑</a> <a href="javascript:;" onclick="delRowData(this)">删除</a>';
             IsEditable = true;
         }//保存编辑后的结果
         function checkAll() {
