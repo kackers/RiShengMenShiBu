@@ -24,6 +24,7 @@
         <tr id="trTitle3">
             <td>名称</td>
             <td>税率</td>
+            <td>规格</td>
             <td>计量单位</td>
             <td>单价</td>
             <td>是否含税价</td>
@@ -31,6 +32,7 @@
         <tr id="inputProduct">
             <td><input type="text" value="" id="textName"/></td>
             <td><input type="text" value="0.03" id="textTax"/></td>
+            <td><input type="text" value="" id="textSpec"/></td>
             <td><input type="text" value="" id="textUnit"/></td>
             <td><input type="text" value="" id="textPrice"/></td>
             <td>
@@ -49,6 +51,7 @@
             <td>序号</td>
             <td>名称</td>
             <td>税率</td>
+            <td>规格</td>
             <td>计量单位</td>
             <td>单价</td>
             <td>是否含税价</td>
@@ -71,6 +74,7 @@
         var table = document.getElementById("tbList");
         var Name;
         var Tax;
+	var Spec;
 	var Unit;
 	var Price;
 
@@ -114,7 +118,7 @@
 	    recalculateOrders();
             for (var i = table.children.length-1;i>0; i--) {
                 tr = table.children[i];
-		tempString = tr.children[0].innerHTML +"~~"+ tr.children[1].innerHTML +"~~"+"~~"+"~~"+ tr.children[2].innerHTML +"~~"+"~~"+ tr.children[3].innerHTML +"~~"+tr.children[4].innerHTML+"~~1~~0000000000~~False\n" + tempString;
+		tempString = tr.children[0].innerHTML +"~~"+ tr.children[1].innerHTML +"~~"+"~~"+"~~"+ tr.children[2].innerHTML +"~~"+  tr.children[3].innerHTML +"~~"+ tr.children[4].innerHTML +"~~"+tr.children[5].innerHTML+"~~1~~0000000000~~False\n" + tempString;
             }
 	    document.getElementById("result").value = tempString;
 
@@ -123,6 +127,7 @@
 	function clearInputBox()
 	{
 		document.getElementById("textName").value = "";
+		document.getElementById("textSpec").value = "";
 		document.getElementById("textUnit").value = "";
             	document.getElementById("textPrice").value = "";
 	}
@@ -134,6 +139,7 @@
             var tdId = document.createElement("td");
             var tdName = document.createElement("td");
             var tdTax = document.createElement("td");
+            var tdSpec = document.createElement("td");
             var tdUnit = document.createElement("td");
 	    var tdPrice = document.createElement("td");
 	    var tdTaxIncluded = document.createElement("td");
@@ -143,6 +149,7 @@
             tdId.innerHTML = int2String3(index);
             tdName.innerHTML = document.getElementById("textName").value;
             tdTax.innerHTML = document.getElementById("textTax").value;
+            tdSpec.innerHTML = document.getElementById("textSpec").value;
             tdUnit.innerHTML = document.getElementById("textUnit").value;
             tdPrice.innerHTML = document.getElementById("textPrice").value;
             tdTaxIncluded.innerHTML = "是";
@@ -153,6 +160,7 @@
             tr.appendChild(tdId);
             tr.appendChild(tdName);
             tr.appendChild(tdTax);
+            tr.appendChild(tdSpec);
             tr.appendChild(tdUnit);
             tr.appendChild(tdPrice);
             tr.appendChild(tdTaxIncluded);
@@ -173,16 +181,18 @@ clearInputBox();
             var tr = obj.parentNode.parentNode;
             Name = tr.children[1].innerHTML;
             Tax = tr.children[2].innerHTML;
-	    Unit = tr.children[3].innerHTML;
-	    Price = tr.children[4].innerHTML;
+	    Spec = tr.children[3].innerHTML;
+	    Unit = tr.children[4].innerHTML;
+	    Price = tr.children[5].innerHTML;
             //tr.children[1].innerHTML = "<select>" + document.getElementById("selList").innerHTML + "</select>";
             tr.children[1].innerHTML = '<input type="text"    style=width:111px value="' + Name + '"/>';
             tr.children[2].innerHTML = '<input type="text" class="count" value="' + Tax + '"/>';
-	tr.children[3].innerHTML = '<input type="text"  style=width:40px value="' + Unit + '"/>';
-	tr.children[4].innerHTML = '<input type="text" class="count" value="' + Price + '"/>';
+	tr.children[3].innerHTML = '<input type="text"  style=width:40px value="' + Spec + '"/>';
+	tr.children[4].innerHTML = '<input type="text"  style=width:40px value="' + Unit + '"/>';
+	tr.children[5].innerHTML = '<input type="text" class="count" value="' + Price + '"/>';
 	//tr.children[5].innerHTML = '<input type="text" class="count" value="' + Tax + '"/>';
 
-            tr.children[6].innerHTML = '<a href="javascript:;" onclick="saveEdit(this)">保存</a> <a href="javascript:;" onclick="cancelEdit(this)">取消</a>';
+            tr.children[7].innerHTML = '<a href="javascript:;" onclick="saveEdit(this)">保存</a> <a href="javascript:;" onclick="cancelEdit(this)">取消</a>';
             IsEditable = false;
         }//编辑行数据
         function cancelEdit(obj) {
@@ -191,11 +201,12 @@ clearInputBox();
 
             tr.children[1].innerHTML = Name;
             tr.children[2].innerHTML = Tax;
-            tr.children[3].innerHTML = Unit;
-	    tr.children[4].innerHTML =  Price ; 
+            tr.children[3].innerHTML = Spec;
+            tr.children[4].innerHTML = Unit;
+	    tr.children[5].innerHTML =  Price ; 
      
 
-            tr.children[6].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑</a> <a href="javascript:;" onclick="delRowData(this)">删除</a>';
+            tr.children[7].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑行</a> <a href="javascript:;" onclick="delRowData(this)">删除行</a>';
             IsEditable = true;
         }//取消编辑
         function saveEdit(obj) {
@@ -204,7 +215,8 @@ clearInputBox();
             tr.children[2].innerHTML = tr.children[2].children[0].value;
             tr.children[3].innerHTML = tr.children[3].children[0].value;
             tr.children[4].innerHTML = tr.children[4].children[0].value;
-            tr.children[6].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑</a> <a href="javascript:;" onclick="delRowData(this)">删除</a>';
+            tr.children[5].innerHTML = tr.children[5].children[0].value;
+            tr.children[7].innerHTML = '<a href="javascript:;" onclick="editRowData(this)">编辑</a> <a href="javascript:;" onclick="delRowData(this)">删除</a>';
             IsEditable = true;
         }//保存编辑后的结果
         function checkAll() {
